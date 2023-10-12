@@ -1,0 +1,79 @@
+#include <stdio.h>
+#include <math.h>  // Include this header for the pow() function
+
+void decToBinary(int decimal) {
+    if (decimal == 0) {
+        printf("Binary: 0\n");
+        return;
+    }
+
+    int binary[32];  // Assuming a 32-bit binary representation
+    int index = 0;
+
+    while (decimal > 0) {
+        binary[index] = decimal % 2;
+        decimal /= 2;
+        index++;
+    }
+
+    printf("Binary: ");
+    for (int i = index - 1; i >= 0; i--) {
+        printf("%d", binary[i]);
+    }
+    printf("\n");
+}
+
+int binaryToDecimal(long long binary) {
+    int decimal = 0, index = 0;
+    while (binary > 0) {
+        int digit = binary % 10;
+        decimal += digit * pow(2, index);
+        binary /= 10;
+        index++;
+    }
+    return decimal;
+}
+
+int main() {
+    int decimal;
+    int count=0;
+    long long binary;  // Moved the declaration of 'binary' here
+    int Conversion;
+
+    while (1) {
+        printf("Note:\n");
+        printf("\ta) Choose 1 for Decimal to Binary conversion\n");
+        printf("\tb) Choose 2 for Binary to Decimal conversion\n");
+        printf("\tc) Choose 3 for Exit\n\n\n");
+        printf(" Enter your choice:");
+        scanf("%d", &Conversion);
+        printf("Calculation:\n\t\t");
+        count++;
+        printf("count%d\n\t",count);
+        
+        switch (Conversion) {
+            case 1:
+                printf("Enter a decimal number: ");
+                scanf("%d", &decimal);
+                decToBinary(decimal);
+                break;  // Added 'break' to exit the case
+
+            case 2:
+                printf("Enter a binary number: ");
+                scanf("%lld", &binary);
+                int decimalValue = binaryToDecimal(binary);  // Renamed variable to avoid conflict
+                printf("Decimal: %d\n", decimalValue);
+                break;  // Added 'break' to exit the case
+
+            case 3:
+                printf("Thank you for visiting.\n Hope you See you later .");
+                return 0;
+
+            default:
+                printf("Invalid Number\n");  // Fixed the syntax error here
+                break;  // Added 'break' to exit the case
+        }
+    }
+
+    return 0;
+}
